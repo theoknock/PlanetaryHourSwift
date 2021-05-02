@@ -8,10 +8,8 @@
 import Foundation
 import CoreLocation
 
-class LocationViewModel: NSObject, ObservableObject{
-    
+class LocationViewModel: NSObject, ObservableObject {
     @Published var userLocation: CLLocation = CLLocation(latitude: 0.0, longitude: 0.0)
-    
     private var locationManager = CLLocationManager()
     
     override init() {
@@ -19,7 +17,6 @@ class LocationViewModel: NSObject, ObservableObject{
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingLocation()
     }
 }
 

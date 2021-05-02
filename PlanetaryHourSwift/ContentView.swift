@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 import CoreLocation
+import CoreGraphics
 
 struct ContentView: View {
     @ObservedObject var locationViewModel = LocationViewModel()
@@ -36,6 +37,10 @@ struct MapView : UIViewRepresentable {
     func makeUIView(context: UIViewRepresentableContext<MapView>) -> MKMapView {
         map.delegate = context.coordinator
         map.showsUserLocation = true
+        map.setUserTrackingMode(.follow, animated: true)
+        map.mapType = .satelliteFlyover
+        let camera = MKMapCamera(lookingAtCenter: locationViewModel.userLocation.coordinate, fromEyeCoordinate: locationViewModel.userLocation.coordinate, eyeAltitude: CLLocationDistanceMax.magnitude)
+        map.camera = camera;
         
         return map
     }
@@ -52,14 +57,14 @@ struct MapView : UIViewRepresentable {
         }
         
         func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-            let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-            let region = MKCoordinateRegion(center: center, latitudinalMeters: 1000, longitudinalMeters: 1000)
-            mapView.region = region
+            print("\nUser location updated\n ")
         }
         
         func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
-            print("\nmapViewWillStartLocatingUser called...\n")
+            print("\nmapViewWillStartLocatingUser called\n")
         }
+        
+        
     }
 }
 
