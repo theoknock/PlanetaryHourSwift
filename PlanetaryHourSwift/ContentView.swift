@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var locationViewModel = LocationViewModel()
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Text("\(locationViewModel.userLocation.coordinate.latitude), \(locationViewModel.userLocation.coordinate.longitude)").padding()
     }
 }
 

@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct PlanetaryHourSwiftApp: App {
+    @EnvironmentObject var locationViewModel: LocationViewModel
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(LocationViewModel())
         }
     }
 }
